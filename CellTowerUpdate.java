@@ -2,6 +2,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.*;
 
+// Problem is to calculate how many days it takes to send an update to all cell towers. the 1's represent cell towers that are already 
+// updated, the 0 represent's cell towers that are yet to receive the update. Per day, only towers directly adjacent to the 1's can be 
+// updated (above, beneath, beside).
+
 public class CellTowerUpdate {
 	public static void main (String[] args) {
 		//creating a graph that we will be able to call diff algorithms to search through.		
@@ -120,8 +124,7 @@ public class CellTowerUpdate {
 				numDays++;
 			else
 				continueLooping = false;
-			
-			
+						
 		}
 		
 		
