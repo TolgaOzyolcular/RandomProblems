@@ -1,0 +1,69 @@
+https://leetcode.com/discuss/interview-question/762546/
+
+// "static void main" must be defined in a public class.
+public class Main {
+    public static void main(String[] args) {
+        ArrayList<String> code1 = new ArrayList<String>();
+        ArrayList<String> code2 = new ArrayList<String>();
+        code2.add("apple");
+        code2.add("apple");
+       
+        code1.add("banana");
+        code1.add("anything");
+        code1.add("banana");
+       
+        ArrayList<ArrayList<String>> codeWords = new ArrayList<ArrayList<String>>();
+        codeWords.add(code1);
+        codeWords.add(code2);
+ 
+        ArrayList<String> cart = new ArrayList<String>();
+        cart.add("banana");
+        cart.add("orange");
+        cart.add("banana");
+        cart.add("apple");
+        cart.add("apple");
+       
+        
+        System.out.println(isWinner(codeWords,cart));
+    }
+   
+    public static int isWinner(ArrayList<ArrayList<String>> codeWords, ArrayList<String> cart){
+        int index = 0;
+        for(int i = 0; i < codeWords.size(); i++){
+            index = elementCheck(codeWords.get(i), cart, index);
+            if(index == -1)
+                return 0;
+        }
+       
+        return 1;
+    }
+   
+    public static int elementCheck(ArrayList<String> code, ArrayList<String> cart, int index){
+        if(code.size() > cart.size())
+            return -1;
+       
+        for(int i = index; i < cart.size(); i++){
+            if(code.get(0).equals(cart.get(i))){
+                if(sequenceCheck(code, cart, i))
+                    return i;
+            }
+        }
+       
+        return -1;
+    }
+   
+    public static boolean sequenceCheck(ArrayList<String> code, ArrayList<String> cart, int index){
+        for(int i = 0; i < code.size(); i++){
+            if((code.get(i).equals("anything")) && (cart.size() >= i)){
+                continue;
+            }
+            else if(code.get(i).equals(cart.get(i+index))){
+                continue;
+            }
+            else
+               return false;
+        }
+              
+        return true;
+    }
+}
