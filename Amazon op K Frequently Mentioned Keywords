@@ -1,0 +1,59 @@
+// "static void main" must be defined in a public class.
+public class Main {
+    public static void main(String[] args) {
+        ArrayList<String> keywords = new ArrayList<String>();
+        keywords.add("anacell");
+        keywords.add("cetracular");
+        keywords.add("betacellular");
+        
+        ArrayList<String> reviews = new ArrayList<String>();
+        reviews.add("Anacell provides the best services in the city");
+        reviews.add("betacellular has awesome services");
+        reviews.add("Best services provided by anacell, everyone should use anacell");
+        
+        System.out.println(mostPopular(keywords,reviews,2));
+    }
+    
+    public static List<String> mostPopular(ArrayList<String> keywords, ArrayList<String> reviews, int k){
+        
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < reviews.size(); i++){
+            sb.append(reviews.get(i));
+            sb.append(" ");
+        }   
+        
+        String[] split = sb.toString().split("\\W+");
+        
+        //System.out.println(Arrays.toString(split));
+        
+        HashMap<String, Integer> map = new HashMap<String, Integer>();
+        
+        for(int i = 0; i < split.length; i++){
+            map.merge(split[i], 1, Integer::sum);
+        }
+        
+        List<Map.Entry<String, Integer> > list = 
+               new LinkedList<Map.Entry<String, Integer> >(map.entrySet());
+        
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer> >() { 
+            public int compare(Map.Entry<String, Integer> o1,  
+                               Map.Entry<String, Integer> o2) 
+            { 
+                if(o1.getValue().compareTo(o2.getValue()) == 0)
+                    return o1.getValue().compareTo(o2.getValue()); 
+                else
+                    return o1.getKey().compareTo(o2.getKey()); 
+            } 
+        });
+        
+        ArrayList<String> common = new ArrayList<String>(); 
+        
+        for (Map.Entry<String, Integer> entry : list){
+            if(keywords.contains(entry.getKey()))
+                common.add(entry.getKey());
+        }
+            
+        return common; 
+        
+    }
+}
